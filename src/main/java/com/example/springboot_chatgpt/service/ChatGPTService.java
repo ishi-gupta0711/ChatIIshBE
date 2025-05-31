@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class ChatGPTService {
 
-    private final RestClient restClient;
+   private final RestClient restClient;
 
     public ChatGPTService(RestClient restClient){
         this.restClient = restClient;
@@ -20,13 +20,15 @@ public class ChatGPTService {
     @Value("${openapi.api.model}")
     private String model;
 
+    @Value("${openapi.api.key}")
+    private String apiKey;
+
     public String getChatResponse(PromptRequest promptRequest){
 
         ChatGPTRequest chatGPTRequest = new ChatGPTRequest(
                 model,
                 List.of(new ChatGPTRequest.Message("user", promptRequest.prompt()))
         );
-        String apiKey = System.getenv("openapi.api.key");
         ChatGPTResponse response = restClient.post()
                 .header("Authorization", "Bearer " + apiKey)
                 .header("Content-Type", "application/json")
