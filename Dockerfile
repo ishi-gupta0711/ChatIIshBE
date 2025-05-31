@@ -1,12 +1,12 @@
-# Build stage
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+# Build stage: Maven + Java 17
+FROM maven:3.8.8-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
 RUN chmod +x mvnw || true
 RUN ./mvnw clean package -DskipTests
 
-# Runtime stage
-FROM eclipse-temurin:21-jdk
+# Runtime stage: Java 17
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
