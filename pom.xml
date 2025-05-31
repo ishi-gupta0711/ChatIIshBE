@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>springboot-chatgpt</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-chatgpt</name>
+	<name>ChatIIshBE</name>
 	<description>Demo project for Spring Boot and ChatGPT</description>
 	<url/>
 	<licenses>
