@@ -1,20 +1,15 @@
-# Build stage with Maven and Java 17
-FROM maven:3.8.8-eclipse-temurin-17 AS build
+# Build stage
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 COPY . .
-
-# Make Maven wrapper executable, if it exists
 RUN chmod +x mvnw || true
-
-# Build the project
 RUN ./mvnw clean package -DskipTests
 
 # Runtime stage
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:21-jdk
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
-# Set JAVA_HOME just in case
 ENV JAVA_HOME=/opt/java/openjdk
 ENV PATH=$JAVA_HOME/bin:$PATH
 
